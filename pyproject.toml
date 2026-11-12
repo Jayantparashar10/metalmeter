@@ -4,28 +4,50 @@ build-backend = "hatchling.build"
 
 [project]
 name = "metalmeter"
-version = "0.1.0.dev0"
+dynamic = ["version"]
 description = "Per-process Apple Silicon GPU and Neural Engine metrics for Python training loops. No sudo, no dependencies."
 readme = "README.md"
 requires-python = ">=3.9"
 license = "MIT"
 license-files = ["LICENSE"]
+authors = [{ name = "Jayant Parashar" }]
+keywords = ["apple silicon", "metal", "gpu", "mps", "mlx", "neural engine", "monitoring", "macos"]
 dependencies = []
 classifiers = [
-    "Operating System :: MacOS",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: MacOS :: MacOS X",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
     "Topic :: System :: Monitoring",
 ]
 
 [project.urls]
 Homepage = "https://github.com/Jayantparashar10/metalmeter"
 Documentation = "https://github.com/Jayantparashar10/metalmeter/blob/main/docs/api.md"
+Changelog = "https://github.com/Jayantparashar10/metalmeter/blob/main/CHANGELOG.md"
+Issues = "https://github.com/Jayantparashar10/metalmeter/issues"
 
 [project.scripts]
 metalmeter = "metalmeter.cli:main"
 
+[tool.hatch.version]
+path = "metalmeter/__init__.py"
+
 [tool.hatch.build.targets.wheel]
 packages = ["metalmeter"]
+
+# An explicit list, so nothing kept out of git (local notes, research scripts) can reach the sdist.
+[tool.hatch.build.targets.sdist]
+only-include = ["metalmeter", "tests", "validation/loads.py", "validation/validate.py", "docs", "README.md", "CHANGELOG.md", "CONTRIBUTING.md", "LICENSE", "pyproject.toml"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

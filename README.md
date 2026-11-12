@@ -22,7 +22,7 @@ Tools like macmon, asitop, mactop and Activity Monitor show the whole machine, a
 - [Security and privacy](#security-and-privacy)
 - [Project status](#project-status)
 
-Full reference: [docs/api.md](docs/api.md). Measured accuracy and limits: [docs/accuracy.md](docs/accuracy.md). Working on metalmeter itself: [CONTRIBUTING.md](CONTRIBUTING.md).
+Full reference: [docs/api.md](https://github.com/Jayantparashar10/metalmeter/blob/main/docs/api.md). Measured accuracy and limits: [docs/accuracy.md](https://github.com/Jayantparashar10/metalmeter/blob/main/docs/accuracy.md). Working on metalmeter itself: [CONTRIBUTING.md](https://github.com/Jayantparashar10/metalmeter/blob/main/CONTRIBUTING.md).
 
 ## Requirements
 
@@ -34,13 +34,15 @@ On other systems metalmeter still imports and never raises. `mm.is_supported()` 
 
 ## Install
 
-metalmeter is not on PyPI yet. Install it from GitHub:
+```sh
+python3 -m pip install metalmeter
+```
+
+This installs the `metalmeter` package and the `metalmeter` command. There is nothing to compile. To try the latest code from GitHub instead:
 
 ```sh
 python3 -m pip install git+https://github.com/Jayantparashar10/metalmeter.git
 ```
-
-This installs the `metalmeter` package and the `metalmeter` command. There is nothing to compile.
 
 ## Quick start
 
@@ -212,11 +214,11 @@ The command line watches another process, so it cannot show that process's GPU m
 | `sys_gpu_util_pct`, `sys_gpu_mem_in_use_bytes` | the whole GPU, for context |
 | `mem_pressure`, `swap_used_bytes`, `thermal_state` | system memory pressure, swap and thermal state |
 
-Every field, with units and sources, is in [docs/api.md](docs/api.md#sample).
+Every field, with units and sources, is in [docs/api.md](https://github.com/Jayantparashar10/metalmeter/blob/main/docs/api.md#sample).
 
 ## Accuracy in brief
 
-Measured on an Apple M2 with macOS 27; details in [docs/accuracy.md](docs/accuracy.md).
+Measured on an Apple M2 with macOS 27; details in [docs/accuracy.md](https://github.com/Jayantparashar10/metalmeter/blob/main/docs/accuracy.md).
 
 - A PyTorch MPS matmul loop reads 88.8% and an MLX one 95.1%, while the whole GPU reads 99%. The per-process figure is usually 5 to 30 points below the system figure.
 - GPU time is counted when a command buffer finishes, so command buffers longer than about a second are undercounted, and single Samples can jump between 0 and 100%. Window means from `stats()` are exact over the window.
@@ -234,10 +236,8 @@ Samples contain only the watched process (and its children) and system totals, n
 
 ## Project status
 
-Version 0.1.0.dev0, not yet released on PyPI. It has been tested on an Apple M2 (8-core GPU) with macOS 27.0, on CPython 3.9 and 3.13. Results from other chips are very welcome: [CONTRIBUTING.md](CONTRIBUTING.md#check-another-mac) explains how to run the checks and send them in.
-
-Planned: an optional integration for [Visdom](https://github.com/fossasia/visdom) (`visdom[mac]`) that plots these metrics next to training curves.
+Version 0.1.0, the first release. It has been tested on an Apple M2 (8-core GPU) with macOS 27.0, on CPython 3.9 and 3.13. Results from other chips are very welcome: [CONTRIBUTING.md](https://github.com/Jayantparashar10/metalmeter/blob/main/CONTRIBUTING.md#check-another-mac) explains how to run the checks and send them in.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [LICENSE](https://github.com/Jayantparashar10/metalmeter/blob/main/LICENSE).

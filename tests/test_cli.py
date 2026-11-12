@@ -55,6 +55,7 @@ def test_process_view_json(capsys):
 
 
 @macos
+@needs_gpu  # without a GPU the line shows "GPU -" (not available) instead
 def test_a_process_without_gpu_clients_says_so(capsys):
     code, out, _ = run(capsys, "--pid", str(os.getpid()), "--count", "1", "--interval", "0.1")
     assert code == 0 and "no GPU clients" in out

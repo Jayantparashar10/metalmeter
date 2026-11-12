@@ -71,7 +71,7 @@ def test_descendants_include_grandchildren():
         child.wait()
 
 
-@pytest.mark.skipif(not os.uname().machine == "arm64", reason="ANE needs Apple Silicon")
+@needs_gpu  # an arm64 VM (a hosted CI runner) has no Neural Engine either
 def test_ane_read():
     raw = ane.read()
     assert raw["providers"] and isinstance(raw["clients"], list)
@@ -89,7 +89,7 @@ def test_system_read():
 def test_a_failing_binding_gives_none_and_warns_once(monkeypatch):
     def boom(*a):
         raise RuntimeError("registry exploded")
-    monkeypatch.setattr(iokit, "prop", boom)
+    monkeypatch.setattr(iokit, "matching", boom)  # the first registry call of both sources, on any Mac
     with pytest.warns(RuntimeWarning, match="gpu_clients.read failed"):
         assert gpu_clients.read() is None
     with pytest.warns(RuntimeWarning, match="ane.read failed"):  # each source warns under its own key

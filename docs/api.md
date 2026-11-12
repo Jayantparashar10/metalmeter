@@ -281,7 +281,7 @@ A process view stops when the process exits, and `--pid` with a PID that does no
 
 ```text
 $ metalmeter info
-metalmeter 0.1.0.dev0, Python 3.13.0 arm64
+metalmeter 0.1.0, Python 3.13.0 arm64
 chip          Apple M2 (8-core GPU, AGXAcceleratorG14G)
 memory        16.0 GiB
 macOS         27.0 (26A428)

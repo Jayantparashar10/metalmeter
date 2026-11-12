@@ -11,7 +11,7 @@ from .monitor import Monitor, stop_all
 from .sampler import device_info, is_supported, snapshot
 from .types import DeviceInfo, FieldStats, Sample, Snapshot, WindowStats
 
-__version__ = "0.1.0.dev0"
+__version__ = "0.1.0"
 
 __all__ = [
     "DeviceInfo", "FieldStats", "Monitor", "Sample", "Snapshot", "WindowStats",

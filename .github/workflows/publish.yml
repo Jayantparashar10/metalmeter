@@ -1,0 +1,52 @@
+name: Publish to PyPI
+
+# Runs when a GitHub release is published. The release tag must be "v" plus the version in
+# metalmeter/__init__.py, for example v0.1.0. Uploading uses PyPI Trusted Publishing, so no
+# API token is stored in the repository.
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    uses: ./.github/workflows/ci.yml
+
+  build:
+    needs: checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install build twine
+      - run: python -m build
+      - run: python -m twine check --strict dist/*
+      - name: The tag matches the package version
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          test -f "dist/metalmeter-${version}-py3-none-any.whl" || {
+            echo "tag ${GITHUB_REF_NAME} does not match the built version:"; ls dist; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/metalmeter
+    permissions:
+      id-token: write  # Trusted Publishing: PyPI accepts a short-lived token issued to this job
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
