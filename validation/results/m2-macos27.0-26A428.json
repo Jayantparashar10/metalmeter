@@ -1,0 +1,156 @@
+{
+ "checks": {
+  "1": {
+   "check": 1,
+   "name": "own-process GPU %",
+   "expect": "mean gpu_util_pct > 80 over 30 s; within 10 points of Activity Monitor",
+   "status": "pass",
+   "measured": {
+    "torch-matmul": {
+     "gpu_util_pct": 88.8,
+     "gpu_util_raw": 88.8,
+     "sys_gpu_util_pct": 99.0,
+     "activity_monitor_pct": null,
+     "seconds": 30.0
+    },
+    "mlx-matmul": {
+     "gpu_util_pct": 95.1,
+     "gpu_util_raw": 95.1,
+     "sys_gpu_util_pct": 99.0,
+     "activity_monitor_pct": null,
+     "seconds": 29.8
+    }
+   },
+   "note": "Activity Monitor comparison not done (run with --activity-monitor)",
+   "date": "2026-11-12"
+  },
+  "2": {
+   "check": 2,
+   "name": "isolation",
+   "expect": "idle process B < 2% while A runs a load",
+   "status": "pass",
+   "measured": {
+    "load_a_gpu_util_pct": 94.6,
+    "idle_b_gpu_util_pct": 0.0,
+    "idle_gpu_client_c_gpu_util_pct": 0.0
+   },
+   "note": "B never touches the GPU; C opened the GPU once and then sleeps",
+   "date": "2026-11-12"
+  },
+  "3": {
+   "check": 3,
+   "name": "children",
+   "expect": "parent alone 0%, children=True > 80%",
+   "status": "pass",
+   "measured": {
+    "parent_alone_gpu_util_pct": 0.0,
+    "tree_gpu_util_pct": 91.4,
+    "tree_children_gpu_util_pct": 90.9
+   },
+   "note": null,
+   "date": "2026-11-12"
+  },
+  "4": {
+   "check": 4,
+   "name": "GPU memory",
+   "expect": "gpu_mem_bytes grows by 1 GiB +-5% and matches torch.mps.driver_allocated_memory()",
+   "status": "pass",
+   "measured": {
+    "gpu_mem_bytes_before": 8798208,
+    "gpu_mem_bytes_after": 1082540032,
+    "growth_gib": 1.0,
+    "torch_driver_allocated_after": 1082540032,
+    "gpu_mem_limit_bytes": 12713115648
+   },
+   "note": "measured inside the load: GPU memory is own-process only",
+   "date": "2026-11-12"
+  },
+  "5": {
+   "check": 5,
+   "name": "energy",
+   "expect": "record whether ri_energy_nj includes GPU energy",
+   "status": "recorded",
+   "measured": {
+    "idle": {
+     "power_w": 0.0,
+     "cpu_util_pct": 0.0,
+     "sys_gpu_util_pct": 0.9
+    },
+    "cpu-busy": {
+     "power_w": 4.523,
+     "cpu_util_pct": 100.0,
+     "sys_gpu_util_pct": 0.0
+    },
+    "torch-bigkernel": {
+     "power_w": 0.0,
+     "cpu_util_pct": 0.0,
+     "sys_gpu_util_pct": 99.8
+    }
+   },
+   "note": "GPU energy is not included: a GPU-bound load reads close to idle",
+   "date": "2026-11-12"
+  },
+  "6": {
+   "check": 6,
+   "name": "Neural Engine",
+   "expect": "record where ANE use shows (script PID or aned)",
+   "status": "recorded",
+   "measured": {
+    "script_ane_connected": true,
+    "script_ane_mem_bytes": 6651904,
+    "aned_has_client": true,
+    "preferred_devices": {
+     "MLNeuralEngineComputeDevice": 18
+    }
+   },
+   "note": "shows on the script's PID",
+   "date": "2026-11-12"
+  },
+  "7": {
+   "check": 7,
+   "name": "fork",
+   "expect": "no crash in a multiprocessing fork child",
+   "status": "pass",
+   "measured": {
+    "child_exitcode": 0,
+    "inherited_monitor_running_in_child": false,
+    "new_monitor_in_child_status": "ok",
+    "parent_still_running": true
+   },
+   "note": null,
+   "date": "2026-11-12"
+  },
+  "8": {
+   "check": 8,
+   "name": "overhead",
+   "expect": "< 1% of one core at 1 s; one read() < 5 ms (median of 40, 0.5 s apart)",
+   "status": "pass",
+   "measured": {
+    "cpu_pct_of_one_core": 0.362,
+    "read_ms_median": 4.05,
+    "read_ms_p95": 4.38,
+    "read_ms_max": 4.42
+   },
+   "note": null,
+   "date": "2026-11-12"
+  }
+ },
+ "device": {
+  "chip": "Apple M2",
+  "gpu_class": "AGXAcceleratorG14G",
+  "gpu_cores": 8,
+  "memory_bytes": 17179869184,
+  "macos": "27.0",
+  "macos_build": "26A428",
+  "apple_silicon": true,
+  "rosetta": false,
+  "vm": false
+ },
+ "versions": {
+  "python": "3.13.0 arm64",
+  "metalmeter": "0.1.0.dev0",
+  "torch": "2.15.0",
+  "mlx": "0.32.4",
+  "coremltools": "9.0"
+ }
+}

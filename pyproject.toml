@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling>=1.27"]  # 1.27+ understands the SPDX `license` field (PEP 639)
+build-backend = "hatchling.build"
+
+[project]
+name = "metalmeter"
+version = "0.1.0.dev0"
+description = "Per-process Apple Silicon GPU and Neural Engine metrics for Python training loops. No sudo, no dependencies."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = []
+classifiers = [
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Topic :: System :: Monitoring",
+]
+
+[project.urls]
+Homepage = "https://github.com/Jayantparashar10/metalmeter"
+Documentation = "https://github.com/Jayantparashar10/metalmeter/blob/main/docs/api.md"
+
+[project.scripts]
+metalmeter = "metalmeter.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["metalmeter"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["allow_subprocess: test starts a child Python on purpose (the child re-installs the no-spawn guard)"]
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+extend-exclude = ["spike"]
+
+[tool.ruff.lint]
+# Pinned so results do not change with ruff releases. No UP: Optional[...] stays valid
+# at runtime on Python 3.9 even if something evaluates the annotations.
+select = ["E", "F", "W", "I", "B"]
