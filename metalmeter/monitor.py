@@ -142,12 +142,17 @@ class _Engine:
 
     def run(self, stop: threading.Event) -> None:
         while not stop.is_set() and not _shutting_down and not self.finished:
-            taken = time.monotonic()
-            self.take()
+            started = time.monotonic_ns()
+            s = self.take()
+            # Count the interval from the Sample's own timestamp, which is set partway through
+            # the reading. Counting from the start of the reading lets jitter bring two
+            # timestamps just under 0.1 s apart, and the sampler then returns the previous
+            # Sample, losing that cycle.
+            base_ns = s.t_mono_ns if s is not None else started
             # Wait out the interval, rechecking it when woken: a Monitor with a shorter
             # interval may have joined, or the last background Monitor may have stopped.
             while not stop.is_set():
-                left = taken + self.interval() - time.monotonic()
+                left = (base_ns - time.monotonic_ns()) / 1e9 + self.interval()
                 if left <= 0:
                     break
                 if self.wake.wait(left):

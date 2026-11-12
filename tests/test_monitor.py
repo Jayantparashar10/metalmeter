@@ -16,15 +16,26 @@ import pytest
 
 import metalmeter as mm
 from metalmeter import _platform
-from metalmeter.monitor import window_stats
+from metalmeter.monitor import _Callback, window_stats
 from metalmeter.types import PROCESS_EXITED, Sample
-from tests.conftest import ROOT, macos
+from tests.conftest import ROOT, macos, needs_gpu
 
 S = 1_000_000_000
 
 
 def sampler_threads():
     return [t for t in threading.enumerate() if t.name == "metalmeter-sampler" and t.is_alive()]
+
+
+def wait_for(condition, timeout=5.0):
+    """Poll until `condition()` is true. CI machines can be slow, so tests wait for an outcome
+    with a generous deadline instead of sleeping a fixed time and counting."""
+    deadline = time.monotonic() + timeout
+    while not condition():
+        if time.monotonic() > deadline:
+            return False
+        time.sleep(0.02)
+    return True
 
 
 @pytest.fixture(autouse=True)
@@ -46,12 +57,12 @@ def test_defaults_and_interval_clamp():
     assert mm.Monitor(interval=10_000, background=False).interval == 60.0
 
 
-def test_background_sampling_fills_the_history():
+def test_background_sampling_fills_the_history_at_the_interval():
     with mm.Monitor(interval=0.1) as m:
-        time.sleep(0.75)
+        assert wait_for(lambda: len(m._engine.history) >= 5)
         samples = list(m._engine.history)
-    assert 4 <= len(samples) <= 10
-    assert all(b.t_mono_ns > a.t_mono_ns for a, b in zip(samples, samples[1:]))
+    # Samples are never closer than the interval, and none is lost to the sampler's 0.1 s guard.
+    assert all(b.t_mono_ns - a.t_mono_ns >= 100_000_000 for a, b in zip(samples, samples[1:]))
 
 
 def test_read_right_after_start_returns_a_sample():
@@ -70,14 +81,15 @@ def test_without_background_there_is_no_thread_and_read_samples():
 
 
 def test_history_is_bounded():
-    with mm.Monitor(interval=0.1, history=3) as m:
-        time.sleep(0.6)
+    seen = []
+    with mm.Monitor(interval=0.1, history=3, on_sample=seen.append) as m:
+        assert wait_for(lambda: len(seen) >= 5)
         assert len(m._engine.history) == 3
 
 
 def test_stats_still_work_after_stop():
     with mm.Monitor(interval=0.1) as m:
-        time.sleep(0.45)
+        assert wait_for(lambda: len(m._engine.history) >= 3)
     w = m.stats(window=60)
     assert w.samples >= 3 and not m.running
 
@@ -99,13 +111,15 @@ def test_monitors_of_the_same_process_share_one_sampler_and_thread():
 def test_the_shortest_interval_drives_sampling_and_callbacks_keep_their_own_pace():
     slow_calls, fast_calls = [], []
     slow = mm.Monitor(interval=1.0, on_sample=slow_calls.append)
-    time.sleep(0.3)  # the thread is now inside its 1 s wait
+    assert wait_for(lambda: slow_calls)  # the thread is now inside its 1 s wait
     fast = mm.Monitor(interval=0.1, on_sample=fast_calls.append)
-    time.sleep(1.0)
+    # Without waking the thread, the first fast Sample would wait out the rest of the 1 s.
+    assert wait_for(lambda: len(fast_calls) >= 2, timeout=0.6)
+    assert wait_for(lambda: len(slow_calls) >= 2)
     slow.stop()
     fast.stop()
-    assert len(fast_calls) >= 7   # the shorter interval took effect at once, not after the 1 s wait
-    assert 1 <= len(slow_calls) <= 3
+    # Each Monitor's callback keeps its own pace (5% slack), however fast the thread samples.
+    assert all(b.t_mono_ns - a.t_mono_ns >= 0.95e9 for a, b in zip(slow_calls, slow_calls[1:]))
 
 
 def test_stop_all_and_repr():
@@ -123,24 +137,30 @@ def test_a_raising_callback_warns_once_and_sampling_continues():
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter("always")
         with mm.Monitor(interval=0.1, on_sample=bad) as m:
-            time.sleep(0.65)
-            errors, n = m.callback_errors, len(m._engine.history)
-    assert errors >= 3 and n >= 4
+            assert wait_for(lambda: m.callback_errors >= 3)  # sampling went on after the first error
     assert len([w for w in caught if "on_sample raised" in str(w.message)]) == 1
 
 
-def test_a_slow_callback_drops_samples_instead_of_queueing():
-    calls = []
+def test_a_busy_callback_drops_samples_instead_of_queueing():
+    # Driven by hand, without timing: the callback blocks until released.
+    release, started, calls = threading.Event(), threading.Event(), []
 
-    def slow(s):
+    def blocked(s):
         calls.append(s)
-        time.sleep(0.4)
-    with mm.Monitor(interval=0.1, on_sample=slow) as m:
-        time.sleep(1.05)
-        n, dropped = len(m._engine.history), m.dropped
-    assert n >= 8                      # sampling kept its pace
-    assert len(calls) <= 4 and dropped >= 4
-    assert len(calls) + dropped <= n
+        started.set()
+        release.wait(5)
+    cb = _Callback(blocked)
+    s1, s2, s3 = (sample(t) for t in (1, 2, 3))
+    cb.offer(s1)
+    assert started.wait(5)
+    cb.offer(s2)                        # the callback is busy: dropped, not queued
+    cb.offer(s3)
+    assert cb.dropped == 2
+    release.set()
+    assert wait_for(lambda: not cb._busy)
+    cb.offer(s3)                        # free again: delivered
+    assert wait_for(lambda: len(calls) == 2) and calls == [s1, s3]
+    cb.close()
 
 
 def test_concurrent_reads_and_stats_while_sampling():
@@ -224,8 +244,7 @@ def test_fork_after_start_leaves_an_inert_monitor_and_no_thread_in_the_child():
             if sampler_threads() or m.running or m.read() is not before:
                 code = 2
             child_mon = mm.Monitor(interval=0.1)   # a new Monitor in the child works
-            time.sleep(0.35)
-            if not child_mon.running or len(child_mon._engine.history) < 2:
+            if not wait_for(lambda: len(child_mon._engine.history) >= 2) or not child_mon.running:
                 code = 3
             child_mon.stop()
             m.stop()
@@ -275,8 +294,9 @@ def test_interpreter_exits_cleanly_with_a_monitor_running(callback_s):
     assert time.monotonic() - t < 4  # not held up by the sampler or by a callback in flight
 
 
-# Overhead
-@macos
+# Overhead. Budgets for a real Mac: on a shared CI virtual machine the numbers say little.
+# validation/validate.py checks them on hardware before each release.
+@needs_gpu
 def test_overhead_at_one_second_is_under_one_percent_of_a_core():
     with mm.Monitor(interval=1.0):
         time.sleep(0.2)
@@ -289,7 +309,7 @@ def test_overhead_at_one_second_is_under_one_percent_of_a_core():
     assert cpu / elapsed < 0.01, f"{cpu / elapsed:.2%} of one core"
 
 
-@macos
+@needs_gpu
 def test_one_read_takes_under_5_ms():
     # Sleeping between reads, as real use does, lets macOS move the thread to a slower core,
     # which makes a read several times dearer than back to back. The budget is for the
