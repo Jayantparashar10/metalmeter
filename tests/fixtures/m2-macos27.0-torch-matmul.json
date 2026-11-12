@@ -1,0 +1,794 @@
+{
+ "format": 1,
+ "captured": "2026-11-11",
+ "load": "torch-matmul",
+ "pid": 17570,
+ "timebase": [
+  125,
+  3
+ ],
+ "static": {
+  "system": {
+   "memsize": 17179869184,
+   "cpu_brand": "Apple M2",
+   "os_version": "27.0",
+   "os_build": "26A428",
+   "arm64": 1,
+   "translated": 0,
+   "vmm_present": 0
+  },
+  "accelerators": [
+   {
+    "entry_id": 4294968234,
+    "class": "AGXAcceleratorG14G",
+    "gpu_core_count": 8
+   }
+  ]
+ },
+ "gpu_clients": {
+  "t_mono_ns": 305380506720416,
+  "consistent": true,
+  "accelerators": 1,
+  "clients": [
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970494,
+    "creator": "pid 410, h:02d2ede48554",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970496,
+    "creator": "pid 410, h:02d2ede48554",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 305333764410166,
+      "accumulatedGPUTime": 10278162034000
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 301588447814041,
+      "accumulatedGPUTime": 592925208
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970740,
+    "creator": "pid 610, h:08ff183c7d67",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970782,
+    "creator": "pid 442, h:9b7f55ce0526",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970832,
+    "creator": "pid 710, h:8e55dcf77a73",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 284817682245625,
+      "accumulatedGPUTime": 755263875
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970845,
+    "creator": "pid 414, h:62c7db217877",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 305351825607541,
+      "accumulatedGPUTime": 15122855083
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970847,
+    "creator": "pid 726, h:5fd9de8ae682",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 304917345435708,
+      "accumulatedGPUTime": 807238083
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970914,
+    "creator": "pid 686, h:cc978d288cbf",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 305349702986833,
+      "accumulatedGPUTime": 44647637541
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970967,
+    "creator": "pid 895, h:adfefc80decd",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 305350503785833,
+      "accumulatedGPUTime": 219208233875
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294970975,
+    "creator": "pid 682, h:324b134f57c7",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 288528865016541,
+      "accumulatedGPUTime": 6105583
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 200198127254791,
+      "accumulatedGPUTime": 3917375
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 221038002744958,
+      "accumulatedGPUTime": 6916541
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 286185734488416,
+      "accumulatedGPUTime": 220166
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971004,
+    "creator": "pid 683, h:e0926fdac700",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 305380455497708,
+      "accumulatedGPUTime": 72510056125
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 305303560894916,
+      "accumulatedGPUTime": 74490458
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971051,
+    "creator": "pid 3621, h:24f54a7ed269",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 303570100716250,
+      "accumulatedGPUTime": 20542883833
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 304746839414166,
+      "accumulatedGPUTime": 7306538050833
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971089,
+    "creator": "pid 5044, h:764b6f2a3105",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971125,
+    "creator": "pid 688, h:ba40ff241db3",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 299881011530375,
+      "accumulatedGPUTime": 79939166
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 299880596725041,
+      "accumulatedGPUTime": 1065000
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971241,
+    "creator": "pid 5049, h:9826370c3b76",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971347,
+    "creator": "pid 655, h:7291b1b6320f",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 261975614179375,
+      "accumulatedGPUTime": 79933333
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 261975614711875,
+      "accumulatedGPUTime": 2476142583
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 229797956386375,
+      "accumulatedGPUTime": 6775291
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 198277476327250,
+      "accumulatedGPUTime": 2634791
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 206983405790166,
+      "accumulatedGPUTime": 1529000
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 228706879630333,
+      "accumulatedGPUTime": 6474291
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 223810755473666,
+      "accumulatedGPUTime": 1866875
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 197007922373375,
+      "accumulatedGPUTime": 454500
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 197007962562250,
+      "accumulatedGPUTime": 234416
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 192055680771666,
+      "accumulatedGPUTime": 456250
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 198106938789041,
+      "accumulatedGPUTime": 556291
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 198107404466041,
+      "accumulatedGPUTime": 732041
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 299444285447458,
+      "accumulatedGPUTime": 1715383208
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 299160522709541,
+      "accumulatedGPUTime": 5224750
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 304748815330583,
+      "accumulatedGPUTime": 750257416
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 293460537534458,
+      "accumulatedGPUTime": 2439000
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 272514078286458,
+      "accumulatedGPUTime": 480625
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 261896985779541,
+      "accumulatedGPUTime": 465833
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 293319784251500,
+      "accumulatedGPUTime": 2971000
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 267229647175375,
+      "accumulatedGPUTime": 1406666
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 263219814939083,
+      "accumulatedGPUTime": 364750
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 288898350305458,
+      "accumulatedGPUTime": 2992000
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 0,
+      "accumulatedGPUTime": 0
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971368,
+    "creator": "pid 5057, h:3f11797569bb",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971370,
+    "creator": "pid 5151, h:de0600b501e6",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971386,
+    "creator": "pid 5148, h:57564396ce0d",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971414,
+    "creator": "pid 5220, h:18379f128a69",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294971674,
+    "creator": "pid 5416, h:7cd9df4fce28",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294972361,
+    "creator": "pid 407, h:8ca7cdc4567b",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294972367,
+    "creator": "pid 5418, h:24f54a7ed269",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294972456,
+    "creator": "pid 5111, h:a2523b416275",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294973505,
+    "creator": "pid 7478, h:acdd1e734125",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 45075724606750,
+      "accumulatedGPUTime": 120260083
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 242726811315916,
+      "accumulatedGPUTime": 84418500
+     },
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 244405241983083,
+      "accumulatedGPUTime": 518041
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294973532,
+    "creator": "pid 7496, h:7cd9df4fce28",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294974163,
+    "creator": "pid 684, h:49c1e208c54a",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 4286038984250,
+      "accumulatedGPUTime": 3673416
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294975335,
+    "creator": "pid 8004, h:d231909fc0b9",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294976664,
+    "creator": "pid 5043, h:fe0e95055cc4",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294993468,
+    "creator": "pid 9767, h:3f11797569bb",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4294997233,
+    "creator": "pid 9840, h:5d1fd807acd3",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 266962230363375,
+      "accumulatedGPUTime": 350415666
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295073323,
+    "creator": "pid 8327, h:62c8ef1ee0e0",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295283365,
+    "creator": "pid 90353, h:864a42fb2ceb",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295335376,
+    "creator": "pid 28839, h:3f11797569bb",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295336912,
+    "creator": "pid 29419, h:ec5b54b58b02",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 242807989584500,
+      "accumulatedGPUTime": 24665375
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295374407,
+    "creator": "pid 48682, h:08551bbea98d",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295377909,
+    "creator": "pid 50471, h:6c06213f5e90",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295385510,
+    "creator": "pid 637, h:41322e0e61dc",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295387304,
+    "creator": "pid 58390, h:3f11797569bb",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295394703,
+    "creator": "pid 65166, h:cd31ce067bbd",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 236364186658083,
+      "accumulatedGPUTime": 2726791
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295403290,
+    "creator": "pid 71711, h:cd31ce067bbd",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295406217,
+    "creator": "pid 808, h:e61a0c91b2b2",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295410955,
+    "creator": "pid 83541, h:16e53ed8fac9",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295411824,
+    "creator": "pid 84212, h:211044ab99a5",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295415991,
+    "creator": "pid 87174, h:2fc31b86cff7",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295425318,
+    "creator": "pid 94930, h:01956523e94a",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295425733,
+    "creator": "pid 95143, h:387e86ea12b0",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 302552823683041,
+      "accumulatedGPUTime": 6716375
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295426017,
+    "creator": "pid 95303, h:f4adec6b4dca",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295427108,
+    "creator": "pid 95486, h:00b103fe32f8",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295428890,
+    "creator": "pid 96999, h:8ac8fdb15745",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295429807,
+    "creator": "pid 97056, h:0270409ae01a",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295450053,
+    "creator": "pid 99637, h:9dcce8a7d332",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 280010750783916,
+      "accumulatedGPUTime": 693083
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295454905,
+    "creator": "pid 95165, h:b9f23252a762",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295456899,
+    "creator": "pid 95088, h:4f831d2e4251",
+    "app_usage": []
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295465385,
+    "creator": "pid 95502, h:387e86ea12b0",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 297154194337833,
+      "accumulatedGPUTime": 4360125
+     }
+    ]
+   },
+   {
+    "accelerator": 4294968234,
+    "entry_id": 4295471643,
+    "creator": "pid 17570, python3.13",
+    "app_usage": [
+     {
+      "API": "Metal",
+      "lastSubmittedTime": 305380457180416,
+      "accumulatedGPUTime": 1720823625
+     }
+    ]
+   }
+  ]
+ },
+ "perf_stats": [
+  {
+   "entry_id": 4294968234,
+   "class": "AGXAcceleratorG14G",
+   "perf": {
+    "In use system memory (driver)": 0,
+    "Alloc system memory": 3945857024,
+    "Tiler Utilization %": 23,
+    "recoveryCount": 0,
+    "lastRecoveryTime": 0,
+    "Renderer Utilization %": 23,
+    "TiledSceneBytes": 1212416,
+    "Device Utilization %": 98,
+    "SplitSceneCount": 0,
+    "Allocated PB Size": 44040192,
+    "In use system memory": 1372930048
+   }
+  }
+ ],
+ "ane": {
+  "providers": [
+   "H1xANELoadBalancer",
+   "H11ANEIn"
+  ],
+  "clients": [
+   {
+    "provider": "H1xANELoadBalancer",
+    "creator": "pid 86227, h:7ca6c5741794"
+   },
+   {
+    "provider": "H1xANELoadBalancer",
+    "creator": "pid 7478, h:acdd1e734125"
+   },
+   {
+    "provider": "H1xANELoadBalancer",
+    "creator": "pid 7478, h:acdd1e734125"
+   },
+   {
+    "provider": "H1xANELoadBalancer",
+    "creator": "pid 95137, h:8009b03f1ec7"
+   }
+  ]
+ },
+ "system": {
+  "mem_pressure": 1,
+  "swap_used_bytes": 719060992,
+  "swap_total_bytes": 2147483648,
+  "thermal_state": 0
+ },
+ "process": {
+  "17570": {
+   "pid": 17570,
+   "rusage": {
+    "flavor": 6,
+    "ri_user_time": 13802413,
+    "ri_system_time": 9420315,
+    "ri_pkg_idle_wkups": 0,
+    "ri_interrupt_wkups": 2,
+    "ri_pageins": 10737,
+    "ri_wired_size": 0,
+    "ri_resident_size": 245907456,
+    "ri_phys_footprint": 1237075192,
+    "ri_proc_start_abstime": 7329041803656,
+    "ri_proc_exit_abstime": 0,
+    "ri_child_user_time": 0,
+    "ri_child_system_time": 0,
+    "ri_child_pkg_idle_wkups": 0,
+    "ri_child_interrupt_wkups": 0,
+    "ri_child_pageins": 0,
+    "ri_child_elapsed_abstime": 0,
+    "ri_diskio_bytesread": 207966208,
+    "ri_diskio_byteswritten": 4096,
+    "ri_cpu_time_qos_default": 46296,
+    "ri_cpu_time_qos_maintenance": 0,
+    "ri_cpu_time_qos_background": 10192,
+    "ri_cpu_time_qos_utility": 6718,
+    "ri_cpu_time_qos_legacy": 23179638,
+    "ri_cpu_time_qos_user_initiated": 0,
+    "ri_cpu_time_qos_user_interactive": 0,
+    "ri_billed_system_time": 178295,
+    "ri_serviced_system_time": 0,
+    "ri_logical_writes": 176136,
+    "ri_lifetime_max_phys_footprint": 1237075192,
+    "ri_instructions": 7480855590,
+    "ri_cycles": 3117923393,
+    "ri_billed_energy": 4005097,
+    "ri_serviced_energy": 0,
+    "ri_interval_max_phys_footprint": 1237075192,
+    "ri_runnable_time": 24040190,
+    "ri_flags": 0,
+    "ri_user_ptime": 13796169,
+    "ri_system_ptime": 9409467,
+    "ri_pinstructions": 7479745040,
+    "ri_pcycles": 3116904570,
+    "ri_energy_nj": 3118681799,
+    "ri_penergy_nj": 3118582320,
+    "ri_secure_time_in_system": 0,
+    "ri_secure_ptime_in_system": 0,
+    "ri_neural_footprint": 0,
+    "ri_lifetime_max_neural_footprint": 0,
+    "ri_interval_max_neural_footprint": 0,
+    "ri_conclave_footprint": 0,
+    "ri_page_wait_time_mach": 13322373,
+    "ri_page_cache_hits": 10625
+   },
+   "errno": 0
+  }
+ }
+}
