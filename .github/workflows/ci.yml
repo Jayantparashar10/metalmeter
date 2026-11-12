@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -21,15 +21,13 @@ jobs:
       - run: ruff check metalmeter tests validation
 
   test:
-    # Hosted macOS runners are virtual machines without a GPU, so the GPU tests skip there and
-    # run on a real Mac before each release (validation/validate.py). Linux runs the parsers
-    # and the sampler from recorded readings.
+    # Hosted macOS runners are Apple Silicon virtual machines without a GPU, so the GPU tests
+    # skip there and run on a real Mac before each release (validation/validate.py).
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
         python: ["3.9", "3.10", "3.11", "3.12", "3.13", "3.14"]
-    runs-on: ${{ matrix.os }}
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

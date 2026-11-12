@@ -17,7 +17,7 @@ jobs:
 
   build:
     needs: checks
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -38,7 +38,7 @@ jobs:
 
   publish:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # the PyPI upload action runs only on Linux; this job only uploads the built files
     environment:
       name: pypi
       url: https://pypi.org/p/metalmeter
